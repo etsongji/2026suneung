@@ -177,6 +177,57 @@
             z-index: 1000;
         }
 
+        .special-alert-banner {
+            position: fixed;
+            top: 90px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            padding: 12px 30px;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: white;
+            box-shadow: 0 5px 20px rgba(255, 107, 107, 0.4);
+            z-index: 1001;
+            cursor: pointer;
+            animation: pulse 2s infinite;
+            border: 2px solid white;
+        }
+
+        .special-alert-banner:hover {
+            background: linear-gradient(135deg, #ee5a6f 0%, #ff6b6b 100%);
+            transform: translateX(-50%) scale(1.05);
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 5px 20px rgba(255, 107, 107, 0.4);
+            }
+            50% {
+                box-shadow: 0 5px 30px rgba(255, 107, 107, 0.8);
+            }
+        }
+
+        .room-specific {
+            background: #fff9c4;
+            border-left: 5px solid #f57f17;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .room-number {
+            display: inline-block;
+            background: #f57f17;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 1.2em;
+            margin-right: 10px;
+        }
+
         .sidebar {
             display: flex;
             flex-direction: column;
@@ -355,6 +406,10 @@
 <body>
     <div class="slide-counter">
         <span id="currentSlide">1</span> / <span id="totalSlides">15</span>
+    </div>
+
+    <div class="special-alert-banner" onclick="openModal('modal11')">
+        🚨 우리 시험장 특화 유의사항 (클릭하여 확인) 🚨
     </div>
 
     <div class="main-layout">
@@ -1522,12 +1577,550 @@
         </div>
     </div>
 
+    <!-- 모달 6: 결시자 처리 -->
+    <div class="modal" id="modal6">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('modal6')">&times;</button>
+            <h2>❌ 결시자 처리</h2>
+            
+            <div class="content">
+                <h3>1. 결시자 파악 및 보고</h3>
+                <ul>
+                    <li>제1감독관이 교시별로 결시자를 파악하여 <strong>결시자 현황표[서식24]</strong>에 수험번호와 성명을 기록</li>
+                    <li>복도감독관에게 전달 (<span class="highlight">본령 후 30분 이내 완료</span>)</li>
+                    <li><strong>3교시는 듣기평가가 끝난 다음 파악</strong></li>
+                    <li>복도감독관은 결시자 현황표(결시자 수)를 시험관리본부에 보고</li>
+                </ul>
+
+                <h3>2. 답안지 처리</h3>
+                <div class="important">
+                    제1감독관이 <strong>검은색 컴퓨터용 사인펜</strong>으로 결시자의 답안지에 다음과 같이 표기:
+                    <ul style="margin-top: 15px;">
+                        <li>성명 및 수험번호 기재</li>
+                        <li>수험번호 해당란과 결시자 표기란에 "●"와 같이 표기</li>
+                        <li>감독관 확인란에 서명 또는 날인</li>
+                    </ul>
+                </div>
+
+                <div class="danger-box" style="margin-top: 20px;">
+                    <strong>⚠️ 주의</strong><br>
+                    답안지의 답란에는 어떠한 표기도 하여서는 안 됨<br>
+                    (답란에 "결시"라고 기재하지 않도록 주의)
+                </div>
+
+                <h3>3. 시스템 입력 및 관리</h3>
+                <ul>
+                    <li>결시자 현황표는 시험관리본부에서 매 교시별 수능 정보시스템에 입력</li>
+                    <li>시험실별 제1감독관과 시험장 책임자의 서명 또는 날인으로 확인</li>
+                    <li><strong>결시자 답안지는 반드시 포함</strong>하되, <strong>영역 미선택자 답안지는 포함하지 말 것</strong></li>
+                    <li>시험장 학교에는 결시자 현황표 원본을 보관</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 모달 7: 중도 포기자 처리 -->
+    <div class="modal" id="modal7">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('modal7')">&times;</button>
+            <h2>🚪 중도 포기자 처리</h2>
+            
+            <div class="content">
+                <h3>시험실 입실 후 중도 포기자 처리</h3>
+                
+                <div class="important">
+                    <strong>기본 원칙</strong>
+                    <ul style="margin-top: 15px;">
+                        <li><strong>시험시간 도중에 퇴실은 허용하지 아니함</strong></li>
+                        <li>해당 영역 종료 후 퇴실 가능</li>
+                    </ul>
+                </div>
+
+                <h3>답안지 처리</h3>
+                <ul>
+                    <li>답안지는 <strong>결시자로 처리하지 않음</strong></li>
+                    <li>수험생이 표기한 대로 답안지를 회수</li>
+                    <li>수험생 정보는 기입하였으나 답란에 표기가 없는 경우 → <span class="highlight">백지 답안지 처리 방식</span>과 동일하게 처리</li>
+                </ul>
+
+                <div class="info-box">
+                    <strong>📝 백지 답안지란?</strong><br>
+                    수험생이 성명, 답란 등을 전혀 작성하지 않은 답안지
+                </div>
+
+                <div class="info-box">
+                    <strong>백지 답안지 처리 방식:</strong><br>
+                    답안지의 수험번호, 성명은 반드시 표기하여 제출하여야 함
+                </div>
+
+                <h3 style="margin-top: 40px;">시험실 입실 전 일부 영역 포기자 처리</h3>
+
+                <h3>조치 방법</h3>
+                <ul>
+                    <li><strong>시험 포기 확인서[서식31]</strong>를 받은 후 대기실로 입실토록 함</li>
+                    <li>잔여 전체 영역 포기 시에는 시험장 밖으로 나가도록 조치</li>
+                    <li>이 경우 답안지는 <span class="highlight">결시자 답안지 처리 방식</span>과 동일하게 처리</li>
+                </ul>
+
+                <div class="note">
+                    <strong>※ 5교시 제2외국어/한문 영역 시험 포기의 경우</strong><br>
+                    시험 포기 확인서(5교시)[서식32] 활용
+                </div>
+
+                <h3>확인서 제출 거부 시</h3>
+                <ul>
+                    <li>제1, 2감독관이 "시험 포기 확인서 제출을 거부하였음"을 기재한 확인서를 임의 작성하여 서명 (사실 확인용)</li>
+                </ul>
+
+                <div class="note">
+                    <strong>※ 한국사 영역 시험 종료 후 일부 영역 포기자의 경우</strong><br>
+                    시험실 입실 후 시험 포기 확인서를 제출하더라도 인정
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 모달 8: 답안지 미제출자 처리 -->
+    <div class="modal" id="modal8">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('modal8')">&times;</button>
+            <h2>📄 답안지 미제출자 처리</h2>
+            
+            <div class="content">
+                <div class="danger-box">
+                    <strong>⚠️ 정의</strong><br>
+                    시험을 치르고 답안지를 제출하지 않은 자
+                </div>
+
+                <h3>처리 절차</h3>
+                
+                <div class="important">
+                    <strong>1단계: 답안지 처리</strong>
+                    <ul style="margin-top: 15px;">
+                        <li>답안지를 <span class="highlight">백지 답안지 처리 방식</span>과 동일하게 처리</li>
+                        <li><strong>백지 답안지 제출자 현황표[서식28]</strong>에 기재</li>
+                    </ul>
+                </div>
+
+                <div class="important" style="margin-top: 30px;">
+                    <strong>2단계: 답안지 작성</strong>
+                    <ul style="margin-top: 15px;">
+                        <li>제1감독관이 <strong>검은색 컴퓨터용 사인펜</strong>으로 여분의 답안지를 이용</li>
+                        <li>해당자의 성명 및 수험번호를 기재</li>
+                        <li>"●"와 같이 표기하여 함께 회수 조치</li>
+                    </ul>
+                </div>
+
+                <div class="important" style="margin-top: 30px;">
+                    <strong>3단계: 보고</strong>
+                    <ul style="margin-top: 15px;">
+                        <li>해당 내용을 <strong>별도 공문</strong>으로 제출</li>
+                    </ul>
+                </div>
+
+                <div class="note" style="margin-top: 50px;">
+                    <strong>💡 참고사항</strong><br>
+                    <ul style="margin-top: 10px;">
+                        <li>답안지 미제출은 중도 포기와는 다른 상황임</li>
+                        <li>반드시 여분의 답안지를 활용하여 기록을 남겨야 함</li>
+                        <li>백지 답안지 제출자 현황표와 별도 공문 제출을 모두 이행해야 함</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 모달 9: 시험 중 부정행위자 처리 -->
+    <div class="modal" id="modal9">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('modal9')">&times;</button>
+            <h2>⚠️ 시험 중 부정행위자 처리</h2>
+            
+            <div class="content">
+                <h3>시험실 감독관의 조치사항</h3>
+                
+                <div class="important">
+                    <strong>1. 부정행위 판단 및 통고</strong>
+                    <ul style="margin-top: 15px;">
+                        <li>시험시간 중 적발된 부정행위 여부는 <span class="highlight">감독관 간(제1, 2감독관)의 합의</span>로 판단</li>
+                        <li>본인에게 부정행위 적발 사실을 통고</li>
+                        <li>복도감독관을 통해 시험장 책임자에게 보고</li>
+                    </ul>
+                </div>
+
+                <div class="important" style="margin-top: 30px;">
+                    <strong>2. 답안지 표기</strong>
+                    <ul style="margin-top: 15px;">
+                        <li>답안지 왼쪽 하단 여백에 <span class="highlight">적색 펜</span>으로 <strong>'부정'</strong> 표기</li>
+                        <li>이유 명기 후 서명 또는 날인</li>
+                    </ul>
+                </div>
+
+                <div class="important" style="margin-top: 30px;">
+                    <strong>3. 답안지 회수</strong>
+                    <ul style="margin-top: 15px;">
+                        <li>시험시간 중 부정행위로 적발된 교시의 답안지는 <strong>결시자로 처리하지 않음</strong></li>
+                        <li>수험생이 표기한 대로 답안지를 회수</li>
+                        <li>답란에 표기가 없는 경우 백지 답안지 처리 방식과 동일하게 처리</li>
+                    </ul>
+                </div>
+
+                <div class="danger-box">
+                    <strong>※ 해당 교시 이후의 답안지는</strong><br>
+                    결시자 답안지 처리 방식과 동일하게 처리
+                </div>
+
+                <div class="important" style="margin-top: 30px;">
+                    <strong>4. 퇴장 및 자술서 징구</strong>
+                    <ul style="margin-top: 15px;">
+                        <li>부정행위자를 시험실에서 퇴장시켜 별도 장소에 대기토록 함</li>
+                        <li><strong>자술서[서식26]</strong> 징구</li>
+                        <li>필요한 경우 경찰관의 지원 요청 가능</li>
+                        <li>자술서 작성을 거부할 경우에는 이를 징구하지 않을 수 있음</li>
+                    </ul>
+                </div>
+
+                <div class="important" style="margin-top: 30px;">
+                    <strong>5. 조서 작성</strong>
+                    <ul style="margin-top: 15px;">
+                        <li>해당 교시 종료 후 제1감독관 및 제2감독관이 <strong>조서[서식27]</strong> 작성</li>
+                        <li>시험장 책임자에게 제출 및 보고</li>
+                    </ul>
+                </div>
+
+                <h3 style="margin-top: 40px;">4교시 탐구 영역 특별 유의사항</h3>
+                
+                <div class="danger-box">
+                    <strong>부정행위로 처리되는 경우:</strong>
+                    <ul style="margin-top: 15px;">
+                        <li>정해진 순서가 아닌 순서로 문제지를 보는 경우</li>
+                        <li>정해진 선택과목 문제지를 모두 올려놓고 보는 경우</li>
+                    </ul>
+                </div>
+
+                <div class="info-box" style="margin-top: 20px;">
+                    <strong>부정행위로 처리하지 않는 경우:</strong><br>
+                    수험생이 본인 선택과목 이외의 기타 문제지를 올려놓았을 경우<br>
+                    → 해당 문제지를 회수하고 부정행위로 처리하지 아니함
+                </div>
+
+                <h3 style="margin-top: 40px;">상급 기관 조치사항</h3>
+                <ul>
+                    <li><strong>시험장 책임자:</strong> 적발 사실을 시험지구 책임자에게 보고, 충청북도교육감에게 보고</li>
+                    <li><strong>조직적·계획적 부정행위 의혹 시:</strong> 반드시 경찰에 수사 의뢰</li>
+                    <li><strong>한국교육과정평가원장:</strong> 부정행위자의 수능 성적은 별도의 처분 없이 무효 처리</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 모달 10: 시험 종료 후 부정행위자 처리 -->
+    <div class="modal" id="modal10">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('modal10')">&times;</button>
+            <h2>🔍 시험 종료 후 적발된 부정행위 처리</h2>
+            
+            <div class="content">
+                <h3>충청북도교육감 조치사항</h3>
+                <ul>
+                    <li>충청북도교육청에서 추가로 인지한 부정행위는 <strong>필요 시 경찰에 수사를 의뢰</strong>하고 교육부장관에게 보고</li>
+                    <li>부정행위자가 재학 중인 학교(대학 포함)에 관련 사실을 통보</li>
+                    <li>학칙에 따른 징계 요구</li>
+                </ul>
+
+                <div class="note">
+                    ※ 교육부장관이 정하는 경미한 부정행위에 해당하는 자는 제외
+                </div>
+
+                <h3 style="margin-top: 40px;">교육부장관의 조치사항</h3>
+                <ul>
+                    <li>교육부가 추가로 인지한 부정행위는 <strong>필요 시 경찰에 수사 의뢰</strong></li>
+                    <li>추가로 인지하거나 충청북도교육감이 보고한 부정행위자에 대하여 <span class="highlight">｢수능부정행위 심의위원회｣</span>를 통해 성적 처리방안 심의 및 결정</li>
+                    <li>결정된 부정행위자 성적 처리방안을 한국교육과정평가원장 및 충청북도교육감에게 통보</li>
+                    <li>필요 시 부정행위자 명단을 대학에 통보</li>
+                </ul>
+
+                <h3 style="margin-top: 40px;">한국교육과정평가원장의 조치사항</h3>
+                <ul>
+                    <li>교육부장관으로부터 통보된 부정행위자의 <strong>성적 무효 처리</strong></li>
+                </ul>
+
+                <h3 style="margin-top: 40px;">대리시험 의혹 응시자에 대한 조치요령</h3>
+                
+                <div class="important">
+                    <strong>1. 발견 및 보고</strong>
+                    <ul style="margin-top: 15px;">
+                        <li>제1감독관은 해당 사실을 시험장 책임자에게 보고</li>
+                        <li>해당 시험실의 다음 감독관에게 전달</li>
+                    </ul>
+                </div>
+
+                <div class="important" style="margin-top: 30px;">
+                    <strong>2. 감시 강화</strong>
+                    <ul style="margin-top: 15px;">
+                        <li>시험장 책임자는 해당 복도감독관을 증원 배치</li>
+                        <li>예의 주시</li>
+                    </ul>
+                </div>
+
+                <div class="important" style="margin-top: 30px;">
+                    <strong>3. 본인 확인</strong>
+                    <ul style="margin-top: 15px;">
+                        <li>해당 응시자가 지원한 모든 과목/영역의 시험 종료 후</li>
+                        <li>감독관의 지시에 따라 별도의 장소로 안내하여 본인 여부 확인</li>
+                    </ul>
+                </div>
+
+                <div class="danger-box">
+                    <strong>⚠️ 도주 시 처리</strong><br>
+                    감독관의 지시에 응하지 않고 도주한 경우<br>
+                    → 경찰에 수사를 의뢰<br>
+                    → 본인 여부와 관계없이 부정행위로 간주하여 수능시험을 무효 처리
+                </div>
+
+                <div class="important" style="margin-top: 30px;">
+                    <strong>4. 대리응시 확인 시</strong>
+                    <ul style="margin-top: 15px;">
+                        <li>부정행위자의 <strong>자술서</strong> 징구</li>
+                        <li>감독관의 <strong>조서</strong>(부정행위자의 최종 교시 제1감독관이 작성) 작성</li>
+                        <li>시험장 책임자에게 제출</li>
+                    </ul>
+                </div>
+
+                <div class="important" style="margin-top: 30px;">
+                    <strong>5. 경찰 인계</strong>
+                    <ul style="margin-top: 15px;">
+                        <li>시험장 책임자는 부정행위자를 경찰에 인계</li>
+                        <li>수사 의뢰</li>
+                    </ul>
+                </div>
+
+                <h3 style="margin-top: 40px;">기타 사항</h3>
+                <div class="important">
+                    <ul>
+                        <li><span class="highlight">원칙:</span> 예비령 이전까지는 즉시 확인하여 처리</li>
+                        <li><span class="highlight">예비령 이후:</span> 해당 교시 종료 후 확인하여 조치</li>
+                        <li><span class="highlight">예외:</span> 상황에 따라 시험장 책임자의 판단하에 최종 교시 종료 후 처리 가능</li>
+                    </ul>
+                </div>
+
+                <div class="info-box" style="margin-top: 30px;">
+                    <strong>💡 기타 사항</strong><br>
+                    명시되지 않은 기타 사항은 <strong>시험 현장에서 적발한 부정행위자 처리 절차 준용</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 모달 11: 우리 시험장 특화 유의사항 -->
+    <div class="modal" id="modal11">
+        <div class="modal-content" style="max-width: 1200px;">
+            <button class="modal-close" onclick="closeModal('modal11')">&times;</button>
+            <h2 style="color: #d32f2f;">🚨 우리 시험장 특화 유의사항</h2>
+            
+            <div class="content">
+                <div class="danger-box" style="background: #ffebee; border-color: #d32f2f;">
+                    <strong style="font-size: 1.3em;">⚠️ 전체 감독관 필독</strong><br>
+                    미선택자 처리 시 반드시 복도감독관에게 인계하여 대기실로 이동시켜야 합니다.
+                </div>
+
+                <h2 style="margin-top: 50px;">📋 교시별 미선택자 현황 및 조치사항</h2>
+
+                <h3 style="background: #e3f2fd; color: #1565c0; padding: 15px;">1교시 미선택자 처리</h3>
+                <div class="important">
+                    <strong>전체 미선택자: 4명</strong>
+                    <div class="room-specific" style="margin-top: 15px;">
+                        <span class="room-number">7실</span> 1명 미선택
+                    </div>
+                    <div class="room-specific">
+                        <span class="room-number">17실</span> 3명 미선택
+                    </div>
+                    <div class="danger-box" style="margin-top: 20px;">
+                        <strong>📌 조치사항</strong>
+                        <ul style="margin-top: 10px;">
+                            <li>감독관으로부터 유의사항을 들은 후</li>
+                            <li>복도감독관에게 인계</li>
+                            <li>미선택자 대기실로 이동</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3 style="background: #e8f5e9; color: #2e7d32; padding: 15px; margin-top: 40px;">2교시 미선택자 처리</h3>
+                <div class="important">
+                    <strong>전체 미선택자: 15명</strong>
+                    <div class="room-specific" style="margin-top: 15px;">
+                        <span class="room-number">7실</span> 9명 미선택
+                    </div>
+                    <div class="room-specific">
+                        <span class="room-number">17실</span> 6명 미선택
+                    </div>
+                    <div class="danger-box" style="margin-top: 20px;">
+                        <strong>📌 조치사항</strong>
+                        <ul style="margin-top: 10px;">
+                            <li>복도감독관에게 인계</li>
+                            <li>미선택자 대기실로 이동</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3 style="background: #fff3e0; color: #e65100; padding: 15px; margin-top: 40px;">3교시 미선택자 처리</h3>
+                <div class="important">
+                    <strong>전체 미선택자: 9명</strong>
+                    <div class="room-specific" style="margin-top: 15px;">
+                        <span class="room-number">4실</span> 2명 미선택
+                    </div>
+                    <div class="room-specific">
+                        <span class="room-number">7실</span> 3명 미선택
+                    </div>
+                    <div class="room-specific">
+                        <span class="room-number">16실</span> 1명 미선택
+                    </div>
+                    <div class="room-specific">
+                        <span class="room-number">17실</span> 3명 미선택
+                    </div>
+                    <div class="danger-box" style="margin-top: 20px;">
+                        <strong>📌 조치사항</strong>
+                        <ul style="margin-top: 10px;">
+                            <li>복도감독관에게 인계</li>
+                            <li>미선택자 대기실로 이동</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3 style="background: #fce4ec; color: #c2185b; padding: 15px; margin-top: 40px;">4교시 특별 유의사항 (한국사 + 탐구)</h3>
+                <div class="important">
+                    <div class="room-specific">
+                        <span class="room-number">17실</span> <strong style="color: #d32f2f;">중요!</strong> 수험생 12명 중 12명이 한국사만 응시, 탐구 영역 미선택
+                    </div>
+                    
+                    <div class="danger-box" style="margin-top: 20px; background: #ffebee;">
+                        <strong style="font-size: 1.2em;">📌 17실 감독관 필수 조치사항</strong>
+                        <div style="margin-top: 15px; padding: 15px; background: white; border-radius: 5px;">
+                            <strong>▶ 한국사 시험 종료 후</strong>
+                            <ul style="margin-top: 10px;">
+                                <li><strong style="color: #1565c0;">5교시 응시자 4명:</strong> 복도감독관에게 인계 → 대기실 이동</li>
+                                <li><strong style="color: #2e7d32;">5교시 미응시자 8명:</strong> 귀가 조치</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="margin-top: 20px; padding: 15px; background: white; border-radius: 5px;">
+                            <strong>▶ 시험 포기 의사가 있는 경우</strong>
+                            <ul style="margin-top: 10px;">
+                                <li>4명 중 시험 포기를 원하는 수험생이 있는지 확인</li>
+                                <li><strong>시험 포기 확인서[서식31]</strong> 제출 받은 후 귀가</li>
+                                <li>확인서 제출 거부 시: "시험 포기 확인서 제출을 거부하였음"을 기재한 확인서를 제1, 2감독관이 작성하여 서명</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 style="background: #f3e5f5; color: #7b1fa2; padding: 15px; margin-top: 40px;">5교시 실시 교실 및 미선택자 처리</h3>
+                <div class="important">
+                    <strong>5교시 실시 교실: 5실, 6실, 7실, 8실, 16실</strong>
+                    
+                    <div class="room-specific" style="margin-top: 20px;">
+                        <span class="room-number">7실</span> 수험생 19명 중 11명만 선택 → <strong style="color: #d32f2f;">나머지 8명 귀가</strong>
+                    </div>
+                    
+                    <div class="room-specific">
+                        <span class="room-number">16실</span> 4명만 선택 → <strong style="color: #d32f2f;">나머지 8명 귀가</strong>
+                    </div>
+
+                    <div class="danger-box" style="margin-top: 20px;">
+                        <strong>📌 5교시 감독관 조치사항</strong>
+                        <ul style="margin-top: 10px;">
+                            <li>대부분의 수험생이 5교시 미선택이므로 귀가 인원이 많음</li>
+                            <li>5교시 신청자 중 시험 포기를 원하는 경우:
+                                <ul style="margin-left: 20px; margin-top: 10px;">
+                                    <li><strong>시험 포기 확인서(5교시)[서식32]</strong> 제출 받은 후 귀가</li>
+                                    <li>확인서 제출 거부 시: "시험 포기 확인서 제출을 거부하였음"을 기재한 확인서를 제1, 2감독관이 작성하여 서명</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h2 style="margin-top: 50px; color: #d32f2f;">📌 실별 특별 주의사항 요약</h2>
+                
+                <div class="warning-box" style="background: #fff9c4; border-color: #f57f17; margin-top: 20px;">
+                    <strong style="font-size: 1.2em;">4실 감독관</strong>
+                    <ul style="margin-top: 10px;">
+                        <li>3교시: 미선택자 2명 → 복도감독관 인계 → 대기실</li>
+                    </ul>
+                </div>
+
+                <div class="warning-box" style="background: #e3f2fd; border-color: #1565c0; margin-top: 15px;">
+                    <strong style="font-size: 1.2em;">5실 감독관</strong>
+                    <ul style="margin-top: 10px;">
+                        <li>5교시: 시험 실시 교실</li>
+                    </ul>
+                </div>
+
+                <div class="warning-box" style="background: #e8f5e9; border-color: #2e7d32; margin-top: 15px;">
+                    <strong style="font-size: 1.2em;">6실 감독관</strong>
+                    <ul style="margin-top: 10px;">
+                        <li>5교시: 시험 실시 교실</li>
+                    </ul>
+                </div>
+
+                <div class="warning-box" style="background: #ffebee; border-color: #d32f2f; margin-top: 15px;">
+                    <strong style="font-size: 1.2em; color: #d32f2f;">7실 감독관 ⚠️ 특별 주의</strong>
+                    <ul style="margin-top: 10px;">
+                        <li>1교시: 미선택자 1명 → 유의사항 후 복도감독관 인계 → 대기실</li>
+                        <li>2교시: 미선택자 9명 → 복도감독관 인계 → 대기실</li>
+                        <li>3교시: 미선택자 3명 → 복도감독관 인계 → 대기실</li>
+                        <li>5교시: 19명 중 11명만 선택, 8명 귀가</li>
+                    </ul>
+                </div>
+
+                <div class="warning-box" style="background: #fff3e0; border-color: #e65100; margin-top: 15px;">
+                    <strong style="font-size: 1.2em;">8실 감독관</strong>
+                    <ul style="margin-top: 10px;">
+                        <li>5교시: 시험 실시 교실</li>
+                    </ul>
+                </div>
+
+                <div class="warning-box" style="background: #f3e5f5; border-color: #7b1fa2; margin-top: 15px;">
+                    <strong style="font-size: 1.2em;">16실 감독관</strong>
+                    <ul style="margin-top: 10px;">
+                        <li>3교시: 미선택자 1명 → 복도감독관 인계 → 대기실</li>
+                        <li>5교시: 4명만 선택, 나머지 8명 귀가</li>
+                    </ul>
+                </div>
+
+                <div class="warning-box" style="background: #fce4ec; border-color: #c2185b; margin-top: 15px;">
+                    <strong style="font-size: 1.2em; color: #c2185b;">17실 감독관 ⚠️ 최우선 주의</strong>
+                    <ul style="margin-top: 10px;">
+                        <li>1교시: 미선택자 3명 → 유의사항 후 복도감독관 인계 → 대기실</li>
+                        <li>2교시: 미선택자 6명 → 복도감독관 인계 → 대기실</li>
+                        <li>3교시: 미선택자 3명 → 복도감독관 인계 → 대기실</li>
+                        <li><strong style="color: #d32f2f;">4교시: 12명 전원 한국사만 응시!</strong>
+                            <ul style="margin-left: 20px;">
+                                <li>5교시 응시자 4명 → 대기실</li>
+                                <li>5교시 미응시자 8명 → 귀가</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="danger-box" style="margin-top: 40px; background: #d32f2f; color: white;">
+                    <strong style="font-size: 1.3em;">🔔 복도감독관 필수 확인사항</strong>
+                    <ul style="margin-top: 15px;">
+                        <li>각 교시별로 해당 실 감독관으로부터 미선택자를 인계받아 대기실로 안내</li>
+                        <li>미선택자 명단 및 인원수 확인 철저</li>
+                        <li>대기실 이동 경로 및 안전 확보</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
         <div class="sidebar-right">
-            <button class="sidebar-btn" onclick="goToSlide(16)">❌ 결시자<br>처리</button>
-            <button class="sidebar-btn" onclick="goToSlide(17)">🚪 중도 포기자<br>처리</button>
-            <button class="sidebar-btn" onclick="goToSlide(18)">📄 답안지<br>미제출자 처리</button>
-            <button class="sidebar-btn" onclick="goToSlide(19)">⚠️ 시험 중<br>부정행위자 처리</button>
-            <button class="sidebar-btn" onclick="goToSlide(21)">🔍 시험 종료 후<br>부정행위자 처리</button>
+            <button class="sidebar-btn" onclick="openModal('modal6')">❌ 결시자<br>처리</button>
+            <button class="sidebar-btn" onclick="openModal('modal7')">🚪 중도 포기자<br>처리</button>
+            <button class="sidebar-btn" onclick="openModal('modal8')">📄 답안지<br>미제출자 처리</button>
+            <button class="sidebar-btn" onclick="openModal('modal9')">⚠️ 시험 중<br>부정행위자 처리</button>
+            <button class="sidebar-btn" onclick="openModal('modal10')">🔍 시험 종료 후<br>부정행위자 처리</button>
         </div>
     </div>
 
