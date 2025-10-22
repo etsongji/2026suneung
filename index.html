@@ -178,26 +178,26 @@
         }
 
         .special-alert-banner {
-            position: fixed;
-            top: 90px;
-            left: 50%;
-            transform: translateX(-50%);
             background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
-            padding: 12px 30px;
+            padding: 15px 20px;
             border-radius: 10px;
-            font-size: 1.1em;
+            font-size: 1em;
             font-weight: bold;
             color: white;
             box-shadow: 0 5px 20px rgba(255, 107, 107, 0.4);
-            z-index: 1001;
             cursor: pointer;
             animation: pulse 2s infinite;
             border: 2px solid white;
+            text-align: center;
+            line-height: 1.4;
+            margin-bottom: 20px;
+            min-width: 150px;
+            max-width: 150px;
         }
 
         .special-alert-banner:hover {
             background: linear-gradient(135deg, #ee5a6f 0%, #ff6b6b 100%);
-            transform: translateX(-50%) scale(1.05);
+            transform: scale(1.05);
         }
 
         @keyframes pulse {
@@ -406,10 +406,6 @@
 <body>
     <div class="slide-counter">
         <span id="currentSlide">1</span> / <span id="totalSlides">15</span>
-    </div>
-
-    <div class="special-alert-banner" onclick="openModal('modal11')">
-        🚨 우리 시험장 특화 유의사항 (클릭하여 확인) 🚨
     </div>
 
     <div class="main-layout">
@@ -2116,6 +2112,9 @@
     </div>
 
         <div class="sidebar-right">
+            <div class="special-alert-banner" onclick="openModal('modal11')">
+                🚨 미선택자<br>교실 유의사항<br>(클릭)
+            </div>
             <button class="sidebar-btn" onclick="openModal('modal6')">❌ 결시자<br>처리</button>
             <button class="sidebar-btn" onclick="openModal('modal7')">🚪 중도 포기자<br>처리</button>
             <button class="sidebar-btn" onclick="openModal('modal8')">📄 답안지<br>미제출자 처리</button>
