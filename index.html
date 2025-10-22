@@ -1,0 +1,1599 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>수능 감독관 교시별 유의사항</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Malgun Gothic', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .main-layout {
+            display: flex;
+            width: 100vw;
+            height: 100vh;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .slide-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .slide {
+            display: none;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 50px;
+            max-width: 900px;
+            width: 100%;
+            height: 90vh;
+            overflow-y: auto;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            color: #667eea;
+            font-size: 3em;
+            margin-bottom: 30px;
+            text-align: center;
+            border-bottom: 4px solid #667eea;
+            padding-bottom: 20px;
+        }
+
+        h2 {
+            color: #764ba2;
+            font-size: 2.2em;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-left: 15px;
+            border-left: 6px solid #764ba2;
+        }
+
+        h3 {
+            color: #555;
+            font-size: 1.5em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            background: #f0f0f0;
+            padding: 12px 20px;
+            border-radius: 8px;
+        }
+
+        .content {
+            font-size: 1.3em;
+            line-height: 1.8;
+            color: #333;
+        }
+
+        .bullet-point {
+            margin: 15px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .bullet-point::before {
+            content: "▶";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            color: #856404;
+        }
+
+        .important {
+            background: #f8d7da;
+            padding: 20px;
+            border-left: 5px solid #dc3545;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            background: #667eea;
+            color: white;
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .slide-counter {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 15px 25px;
+            border-radius: 30px;
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #667eea;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 1000;
+            padding: 0 15px;
+            flex-shrink: 0;
+        }
+
+        .sidebar-right {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 1000;
+            padding: 0 15px;
+            flex-shrink: 0;
+        }
+
+        .sidebar-btn {
+            background: white;
+            border: none;
+            padding: 12px 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            font-weight: bold;
+            color: #667eea;
+            font-size: 0.8em;
+            text-align: center;
+            min-width: 150px;
+            max-width: 150px;
+            line-height: 1.4;
+        }
+
+        .sidebar-btn:hover {
+            transform: translateX(5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            background: #667eea;
+            color: white;
+        }
+
+        .sidebar-right .sidebar-btn {
+            background: #fff3e0;
+            color: #e65100;
+            text-align: center;
+        }
+
+        .sidebar-right .sidebar-btn:hover {
+            transform: translateX(-5px);
+            background: #e65100;
+            color: white;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 2000;
+            overflow-y: auto;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            max-width: 1000px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 2.5em;
+            cursor: pointer;
+            color: #999;
+            transition: color 0.3s;
+            background: none;
+            border: none;
+        }
+
+        .modal-close:hover {
+            color: #333;
+        }
+
+        .modal h2 {
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .modal h3 {
+            color: #764ba2;
+            font-size: 1.6em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .modal-content .content {
+            font-size: 1.1em;
+            line-height: 1.8;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .danger-box {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .info-box {
+            background: #d1ecf1;
+            border-left: 5px solid #17a2b8;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .note {
+            background: #d1ecf1;
+            border-left: 5px solid #0c5460;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            color: #0c5460;
+        }
+
+        ul {
+            list-style: none;
+            margin-left: 20px;
+        }
+
+        ul li {
+            margin: 10px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        ul li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #764ba2;
+            font-size: 1.5em;
+            line-height: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-counter">
+        <span id="currentSlide">1</span> / <span id="totalSlides">15</span>
+    </div>
+
+    <div class="main-layout">
+        <div class="sidebar">
+            <button class="sidebar-btn" onclick="openModal('modal1')">📵 시험장 반입<br>금지 물품</button>
+            <button class="sidebar-btn" onclick="openModal('modal2')">✅ 시험 중<br>휴대 가능 물품</button>
+            <button class="sidebar-btn" onclick="openModal('modal3')">📦 휴대 가능 물품<br>외 물품</button>
+            <button class="sidebar-btn" onclick="openModal('modal4')">🆔 수험생 본인<br>여부 확인</button>
+            <button class="sidebar-btn" onclick="openModal('modal5')">⌚ 휴대 가능<br>시계 여부 확인</button>
+        </div>
+
+        <div class="slide-container">
+        <!-- 슬라이드 1: 표지 -->
+        <div class="slide active">
+            <h1 style="font-size: 4em; margin-top: 200px; border: none;">📋 수능 감독관</h1>
+            <h1 style="font-size: 3.5em; border: none;">교시별 유의사항</h1>
+            <p style="text-align: center; font-size: 1.8em; color: #666; margin-top: 50px;">시험관리 본부</p>
+        </div>
+
+        <!-- 슬라이드 2: 1교시 - 감독관 입실 -->
+        <div class="slide">
+            <h1>1교시 감독 요령</h1>
+            <h2>▶ 감독관 입실 (08:10)</h2>
+            
+            <h3>필기도구 배부 및 유의사항 안내</h3>
+            
+            <div class="content">
+                <div class="bullet-point">
+                    시험감독관은 <span class="highlight">08:10</span>에 시험실에 입실한 다음, 제2감독관이 응시자에게 필기도구(검은색 컴퓨터용 사인펜, 샤프 등)를 나누어 주고, 제1감독관은 수험생 유의사항을 주지시킴.
+                </div>
+                
+                <div class="note">
+                    <strong>※</strong> 수험생 유의사항을 제대로 전달받지 못하는 일이 발생하지 않도록 화장실 이동 등으로 이석한 수험생에게는 유의사항 개별 전달
+                </div>
+
+                <div class="bullet-point">
+                    답안지에 성명, 수험번호, 문제지 문형 등을 정확히 기재토록 하고, 특히 4교시 탐구 영역의 경우 선택과목 순서에 맞게 답란을 표기하도록 철저히 주지시킴.
+                </div>
+
+                <div class="important">
+                    <strong>⚠️ 중요</strong><br>
+                    한국사 영역에 응시하지 않으면 수능 성적 전체가 무효 처리됨을 철저히 주지시킴.
+                </div>
+
+                <div class="bullet-point">
+                    시험장 반입 금지 물품, 시험 중 휴대 가능 물품, 시험 중 휴대 가능 물품 외 물품의 종류 등을 설명하고 관리 절차에 따라 조치
+                </div>
+            </div>
+        </div>
+
+        <!-- 슬라이드 2-1: 1교시 예비령 -->
+        <div class="slide">
+            <h1>1교시 감독 요령</h1>
+            <h2>▶ 예비령 (08:25)</h2>
+            
+            <div class="content">
+                <h3>문제지 및 답안지 개봉·배부</h3>
+                <div class="bullet-point">
+                    제1감독관은 문제지 및 답안지 봉투를 포장지에 표기된 방법에 따라 개봉하여 문제지 및 답안지 수량을 확인하며, 이상이 있을 시는 즉시 복도감독관을 통해 시험장 책임자에게 보고하여 대책을 강구
+                </div>
+                <div class="note">
+                    <strong>※</strong> 여분으로 보충이 가능한 경우는 보고 불필요
+                </div>
+
+                <div class="bullet-point">
+                    매수 확인 즉시 제2감독관은 <strong>답안지를 수험생에게 우선 배부</strong>
+                </div>
+
+                <div class="bullet-point">
+                    제1감독관은 지급된 검은색 컴퓨터용 사인펜으로 답안지에 성명, 수험번호 등 해당사항을 기재 및 표기하도록 함. <span class="highlight">(문형은 문제지를 받은 후 표기)</span>
+                </div>
+
+                <h3 style="margin-top: 40px;">답안지 작성 시 수험생 준수사항</h3>
+                <div class="important">
+                    <ul>
+                        <li>답안지는 <strong>'검은색 컴퓨터용 사인펜'만을 사용</strong>하여 작성하여야 하며, 그 외의 필기구를 사용하는 경우 수험생에게 불이익이 발생할 수 있음</li>
+                        <li>한번 표기한 답을 수정하고자 하는 경우에는 <strong>흰색 수정테이프만을 사용</strong>하여 완전히 지운 후에 수정 (수정액 또는 수정스티커 사용 시 불이익을 받을 수 있음)</li>
+                        <li>수정테이프가 떨어지는 등 불완전한 수정처리로 인해 발생하는 모든 책임은 수험생에게 있음</li>
+                        <li>1~3교시 및 4교시 한국사 영역은 문제지의 홀수형, 짝수형 구분이 있으므로 <strong>문형 란에 반드시 문제지 문형을 표기</strong>해야 함</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 슬라이드 2-2: 1교시 준비령 -->
+        <div class="slide">
+            <h1>1교시 감독 요령</h1>
+            <h2>▶ 준비령 (08:35)</h2>
+            
+            <div class="content">
+                <h3>문제지 배부</h3>
+                <div class="bullet-point">
+                    제1감독관은 수험생의 정면 중앙에 위치하여 수험생들에게 <strong>두 손을 책상 아래로 내린 다음 조용히 기다리도록 지시</strong>
+                </div>
+
+                <div class="bullet-point">
+                    제2감독관이 문제지 홀수형, 짝수형을 순서에 따라 배부
+                </div>
+                <div class="note">
+                    <strong>※</strong> 배부시간이 부족할 때에는 제1감독관이 홀수형을, 제2감독관은 짝수형을 나누어 배부
+                </div>
+
+                <h3>배부 후 확인사항</h3>
+                <div class="bullet-point">
+                    배부 완료 후 수험생으로 하여금 배부된 문제지가 수험생 책상에 부착된 스티커에 기재된 문형(홀·짝수형)과 일치하는지의 여부 및 교시별 문제지 면수와 각 면의 인쇄상태를 확인하도록 하고 이상이 있을 경우 여분 문제지를 이용하여 일치되게 재교부
+                </div>
+
+                <div class="bullet-point">
+                    1~3교시 및 4교시 한국사 영역의 경우 답안지 문제 문형 표기 란에 홀수형 또는 짝수형 중 <strong>해당 문형을 "●"와 같이 표기</strong>하도록 함
+                </div>
+
+                <div class="bullet-point">
+                    문제지에 수험번호 및 성명을 기재하도록 함
+                </div>
+
+                <div class="note">
+                    <strong>※</strong> 봉투에 들어있는 여분 수량이 부족하여 교체해 줄 수 없을 경우에는 시험관리본부 여분으로 교체하고, 시험관리본부 여분으로도 교체할 수 없을 경우에는 수험생 책상에 부착된 스티커상의 문제지 문형과 관계없이 실제 수험생에게 배부된 문제지로 시험을 치르도록 하되, 답안지에는 실제 배부된 문제지 문형을 표기하도록 하고, 표기를 확인한 후 위의 사항을 별도 공문으로 작성(별도 서식 없음)하여 제출함
+                </div>
+
+                <div class="bullet-point">
+                    문제지 표지에 제시된 필적확인문구를 답안지의 필적확인란에 정자체로 기재하도록 함
+                </div>
+            </div>
+        </div>
+
+        <!-- 슬라이드 2-3: 1교시 본령 - 답안 작성 지시 -->
+        <div class="slide">
+            <h1>1교시 감독 요령</h1>
+            <h2>▶ 본령 (08:40)</h2>
+            
+            <div class="content">
+                <h3>1. 답안 작성 지시 및 답안지 확인</h3>
+                
+                <div class="important">
+                    제1감독관은 답안지의 성명, 수험번호, 문형(홀수형, 짝수형), 필적확인란 등 올바른 표기여부를 <strong>반드시 확인</strong>한 후, 답안지의 감독관 확인란에 제1감독관의 정자체로 서명 날인
+                </div>
+
+                <div class="note">
+                    <strong>※</strong> 날인 시 스탬프 또는 인주 등을 사용하는 경우, 접촉 시 주변으로 번지지 않도록 주의
+                </div>
+
+                <h3 style="margin-top: 40px;">2. 결시자 처리</h3>
+                
+                <div class="bullet-point">
+                    제1감독관이 교시별로 결시자를 파악하여 결시자 현황표[서식24]에 수험번호와 성명을 기록하고, 복도감독관에게 전달
+                </div>
+                <div class="note">
+                    <strong>※</strong> 본령 후 30분 이내 완료하되 3교시는 듣기평가가 끝난 다음 파악
+                </div>
+
+                <div class="bullet-point">
+                    복도감독관은 결시자 현황표(결시자 수)를 시험관리본부에 보고
+                </div>
+
+                <div class="bullet-point">
+                    제1감독관이 검은색 컴퓨터용 사인펜으로 결시자의 답안지에 성명 및 수험번호를 기재하고 수험번호 해당란과 <strong>결시자 표기란에 "●"와 같이 표기</strong>
+                </div>
+
+                <div class="important">
+                    <strong>⚠️ 중요</strong><br>
+                    <ul>
+                        <li>답안지의 답란에는 어떠한 표기도 하여서는 안 됨 (답란에 "결시"라고 기재하지 않도록 주의)</li>
+                        <li>결시자 답안지는 반드시 포함하되, 영역 미선택자 답안지는 포함하지 말 것</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 슬라이드 2-4: 1교시 본령 - 중도 포기자 및 답안지 미제출자 -->
+        <div class="slide">
+            <h1>1교시 감독 요령</h1>
+            <h2>▶ 본령 - 중도 포기자 및 미제출자 처리</h2>
+            
+            <div class="content">
+                <h3>시험실 입실 후 중도 포기자 처리</h3>
+                
+                <div class="bullet-point">
+                    시험시간 도중에 퇴실은 허용하지 아니하며, <strong>해당 영역 종료 후 퇴실 가능</strong>
+                </div>
+
+                <div class="bullet-point">
+                    답안지는 결시자로 처리하지 않고, 수험생이 표기한대로 답안지를 회수
+                </div>
+                <div class="note">
+                    <strong>※</strong> 수험생 정보는 기입하였으나 답란에 표기가 없는 경우 백지 답안지 처리 방식과 동일하게 처리<br>
+                    <strong>※</strong> 백지 답안지: 수험생이 성명, 답란 등을 전혀 작성하지 않은 답안지<br>
+                    <strong>※</strong> 백지 답안지 처리 방식: 답안지의 수험번호, 성명은 반드시 표기하여 제출하여야 함
+                </div>
+
+                <h3 style="margin-top: 40px;">시험실 입실 전 일부 영역 포기자 처리</h3>
+                
+                <div class="bullet-point">
+                    시험 포기 확인서[서식31]를 받은 후 대기실로 입실토록 하거나, 잔여 전체 영역 포기 시에는 시험장 밖으로 나가도록 조치
+                </div>
+                <div class="note">
+                    <strong>※</strong> 이 경우 답안지는 결시자 답안지 처리 방식과 동일하게 처리<br>
+                    <strong>※</strong> 5교시 제2외국어/한문 영역 시험 포기의 경우, 시험 포기 확인서(5교시)[서식32] 활용
+                </div>
+
+                <div class="bullet-point">
+                    시험 포기 확인서 제출을 거부할 경우, 제1, 2감독관이 "시험 포기 확인서 제출을 거부하였음"을 기재한 확인서를 임의 작성하여 서명 (사실 확인용)
+                </div>
+
+                <div class="note">
+                    <strong>※</strong> 한국사 영역 시험 종료 후 일부 영역 포기자의 경우 시험실 입실 후 시험 포기 확인서를 제출하더라도 인정
+                </div>
+
+                <h3 style="margin-top: 40px;">답안지 미제출자 처리</h3>
+                
+                <div class="bullet-point">
+                    시험을 치르고 답안지를 제출하지 않은 자가 있을 때는 답안지를 백지 답안지 처리 방식과 동일하게 처리[백지 답안지 제출자 현황표[서식28]에 기재]하고 추가로 해당 내용을 별도 공문으로 제출
+                </div>
+
+                <div class="bullet-point">
+                    제1감독관이 검은색 컴퓨터용 사인펜으로 여분의 답안지를 이용하여 해당자의 성명 및 수험번호를 기재하고 "●"와 같이 표기하여 함께 회수 조치
+                </div>
+            </div>
+        </div>
+
+        <!-- 슬라이드 2-5: 1교시 본령 - 시험 감독 요령 -->
+        <div class="slide">
+            <h1>1교시 감독 요령</h1>
+            <h2>▶ 본령 - 시험 감독 요령</h2>
+            
+            <div class="content">
+                <div class="bullet-point">
+                    제1감독관이 확인하는 동안 제2감독관은 정면 중앙에 위치하여 감독함
+                </div>
+
+                <div class="important">
+                    <strong>⚠️ 본령이 울린 후에는 수험생의 입실을 일체 허용하여서는 안 됨</strong>
+                </div>
+
+                <div class="bullet-point">
+                    시험 실시 중에는 인쇄 오류 이외에 시험과 관련한 어떠한 질문에 응하지 않음
+                </div>
+
+                <div class="bullet-point">
+                    문제지의 인쇄 상태 등에 이상이 있는 문제지는 교체하여 줌
+                </div>
+
+                <div class="bullet-point">
+                    답안지 교체요구가 있을 경우 여분 답안지로 교체해 주고, 부족 시 복도감독관을 통하여 옆 시험실 또는 시험관리본부 여분을 구해 가능한 한 교체해 주도록 함
+                </div>
+                <div class="note">
+                    <strong>※</strong> 답란 수정을 위한 답안지 교체 요구 시 수정테이프로 답란 수정이 허용됨을 알림<br>
+                    <strong>※</strong> 교체로 인해 회수한 답안지는 반드시 수험생이 보는 앞에서 답안지의 앞면에 크게 적색 사인펜으로 '×' 표기를 한 다음 여분 답안지 봉투에 넣음
+                </div>
+
+                <div class="bullet-point">
+                    (1~2교시의 경우) 국어, 수학 영역은 제공받은 문제지 전체를 올려놓고 응시하되, 수험생이 선택한 선택과목의 문제지를 확인하고 응시하는 것임. 다만, 1~2교시의 경우, <strong>공통과목과 선택과목 응시 순서는 관계 없음</strong>
+                </div>
+
+                <div class="bullet-point">
+                    시험 종료 <span class="highlight">10분</span> 전에는 남은 시간이 "10분임"을 알리고 답안지에 성명, 수험번호, 문제 문형 등이 정확히 기재 및 표기되었는지를 다시 한 번 확인하도록 하고 방송 또는 구두로 알림
+                </div>
+                <div class="note">
+                    <strong>※</strong> 4, 5교시는 5분 전
+                </div>
+            </div>
+        </div>
+
+        <!-- 슬라이드 2-6: 1교시 본령 - 시험 감독 요령 계속 -->
+        <div class="slide">
+            <h1>1교시 감독 요령</h1>
+            <h2>▶ 본령 - 시험 감독 요령 (계속)</h2>
+            
+            <div class="content">
+                <div class="bullet-point">
+                    복도감독관은 외부인 및 퇴실당한 응시자가 시험실에 접근하지 못하도록 통제함
+                </div>
+
+                <div class="bullet-point">
+                    순찰요원(또는 경찰관)은 시험관리본부와 유기적인 연락을 취하며 시험이 종료될 때까지 시험장 내를 순찰하여 수험생의 안전을 도모하고, 무선기기 등을 사용하는 부정행위를 감시함
+                </div>
+
+                <div class="important">
+                    수험생에게는 가급적 경어를 사용하고, 문제 풀이를 위한 집중에 방해가 될 수 있는 불필요한 질문, 소음 유발 등은 하지 않도록 주의함
+                </div>
+
+                <div class="bullet-point">
+                    시험시간이 종료되기 전에 수험생을 퇴실시켜서는 안 됨. 다만, 응급환자 등 부득이한 경우의 퇴실자는 복도감독관이 동행함
+                </div>
+
+                <div class="bullet-point">
+                    시험 도중 부득이하게 시험실을 출입할 상황이 발생할 시(화장실 등) 제1, 2감독관 협의 하에 점검 후 제2감독관이 복도감독관에게 인계함
+                </div>
+                <div class="note">
+                    <strong>※</strong> 수험생과 같은 성(남성, 여성)을 가진 복도감독관이 임무 수행
+                </div>
+
+                <div class="important">
+                    <strong>⚠️ 감독관은 시험 시간 중에는 해당 시험실을 이탈해서는 안 됨</strong>
+                </div>
+
+                <div class="bullet-point">
+                    감독관은 시험 감독에 지장이 없는 범위 내에서 필요한 경우 시험실에 비치된 의자를 이용할 수 있으며, 나머지 감독관 1명은 시험실 앞쪽 중앙에 서서 감독해야 함
+                </div>
+                <div class="note">
+                    <strong>※</strong> 감독관 의자는 시험실 뒤쪽에 2개 배치<br>
+                    <strong>※</strong> 부정행위 및 민원 발생 소지가 없도록 교대로 이용함<br>
+                    <strong>※</strong> 4교시(감독관 3명 입실)의 경우 가급적 2명의 감독관이 동시에 이용하지 않도록 함
+                </div>
+            </div>
+        </div>
+
+        <!-- 슬라이드 2-7: 부정행위자 처리 -->
+        <div class="slide">
+            <h1>1교시 감독 요령</h1>
+            <h2>▶ 부정행위자 및 사고자 처리</h2>
+            
+            <div class="content">
+                <h3>시험 현장에서의 부정행위자 처리</h3>
+                
+                <div class="important">
+                    <strong>시험실 감독관의 조치사항</strong>
+                    <ul style="margin-top: 10px;">
+                        <li>시험시간 중 적발된 부정행위 여부는 <strong>감독관 간(제1, 2감독관)의 합의로 판단</strong></li>
+                        <li>본인에게 부정행위 적발 사실을 통고하고, 복도감독관을 통해 시험장 책임자에게 보고</li>
+                        <li>답안지 왼쪽 하단 여백에 적색 펜으로 '<strong>부정</strong>' 표기 및 이유 명기 후 서명 또는 날인</li>
+                        <li>시험시간 중 부정행위로 적발된 교시의 답안지는 결시자로 처리하지 않고, 수험생이 표기한 대로 답안지를 회수</li>
+                    </ul>
+                </div>
+
+                <div class="note">
+                    <strong>※</strong> 답란에 표기가 없는 경우 백지 답안지 처리 방식과 동일하게 처리<br>
+                    <strong>※</strong> 해당 교시 이후의 답안지는 결시자 답안지 처리 방식과 동일하게 처리
+                </div>
+
+                <div class="bullet-point">
+                    부정행위자를 시험실에서 퇴장시켜 별도 장소에 대기토록 하고 자술서[서식26] 징구
+                </div>
+                <div class="note">
+                    <strong>※</strong> 부정행위자의 시험실 퇴장 시 필요한 경우 경찰관의 지원을 요청하고, 자술서 작성을 거부할 경우에는 이를 징구하지 않을 수 있음
+                </div>
+
+                <div class="bullet-point">
+                    해당 교시 종료 후 제1감독관 및 제2감독관이 조서[서식27]를 작성하여 시험장 책임자에게 제출 및 보고
+                </div>
+
+                <div class="important">
+                    <strong>⚠️ 4교시 탐구 영역 특별 주의사항</strong><br>
+                    <ul style="margin-top: 10px;">
+                        <li>정해진 순서가 아닌 순서로 문제지를 보거나 정해진 선택과목 문제지를 모두 올려놓고 보는 경우 부정행위로 처리</li>
+                        <li>수험생이 본인 선택과목 이외의 기타 문제지를 올려놓았을 경우 해당 문제지를 회수하고 부정행위로 처리하지 아니함</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 슬라이드 2-8: 대리시험 의혹자 처리 -->
+        <div class="slide">
+            <h1>1교시 감독 요령</h1>
+            <h2>▶ 대리시험 의혹 응시자 처리</h2>
+            
+            <div class="content">
+                <div class="bullet-point">
+                    제1감독관은 해당 사실을 시험장 책임자에게 보고하고, 해당 시험실의 다음 감독관에게 전달
+                </div>
+
+                <div class="bullet-point">
+                    시험장 책임자는 해당 복도감독관을 증원 배치하고 예의 주시
+                </div>
+
+                <div class="bullet-point">
+                    해당 응시자가 지원한 모든 과목/영역의 시험 종료 후 감독관의 지시에 따라 별도의 장소로 안내하여 본인 여부 확인
+                </div>
+
+                <div class="important">
+                    <strong>⚠️ 감독관의 지시에 응하지 않고 도주한 경우</strong><br>
+                    경찰에 수사를 의뢰하고, 본인 여부와 관계없이 부정행위로 간주하여 수능시험을 무효 처리
+                </div>
+
+                <div class="bullet-point">
+                    대리응시가 확인되었을 경우, 부정행위자의 자술서와 감독관의 조서(부정행위자의 최종 교시 제1감독관이 작성)를 시험장 책임자에게 제출
+                </div>
+
+                <div class="bullet-point">
+                    시험장 책임자는 부정행위자를 경찰에 인계하고 수사 의뢰
+                </div>
+
+                <h3 style="margin-top: 40px;">기타 유의사항</h3>
+                <div class="note">
+                    부정행위 의혹이 있는 응시자에 대해서는, 원칙적으로 <strong>예비령 이전까지는 즉시 확인하여 처리</strong>하고, <strong>예비령 이후는 해당 교시 종료 후 확인</strong>하여 조치하되, 상황에 따라 시험장 책임자의 판단하에 최종 교시 종료 후 처리할 수 있음
+                </div>
+            </div>
+        </div>
+
+        <!-- 슬라이드 2-9: 종료령 및 문답지 회수 -->
+        <div class="slide">
+            <h1>1교시 감독 요령</h1>
+            <h2>▶ 종료령 (10:00)</h2>
+            
+            <div class="content">
+                <h3>문제지 및 답안지 회수</h3>
+                
+                <div class="important">
+                    시험 종료령이 울리면 감독관은 수험생에게 일제히 필기도구를 놓고 <strong>답안지는 오른쪽, 문제지는 왼쪽</strong>에 놓도록 한 다음 답안지와 문제지를 완전히 회수하여 시험용품과 함께 시험관리본부에 인계
+                </div>
+
+                <div class="bullet-point">
+                    문제지 및 답안지 회수 후 수량 확인이 끝나면 퇴실 지시와 함께 다음 교시 미선택자는 대기실로 갈 수 있도록 안내
+                </div>
+
+                <div class="bullet-point">
+                    시험관리본부 근무자는 감독관이 회수해 온 답안지와 문제지 전량 회수 여부 확인 후 인수
+                </div>
+
+                <div class="bullet-point">
+                    시험관리본부 책임자는 매 교시 종료 후 문제지 및 답안지 회수가 지체되는 일이 없도록 필요 인원을 배치
+                </div>
+
+                <div class="bullet-point">
+                    시험장 책임자는 매 교시 종료 30분 전에 다음 교시를 준비
+                </div>
+
+                <h3 style="margin-top: 40px;">여분 답안지 처리</h3>
+                <div class="note">
+                    시험 종료 후 여분 답안지 처리를 해야 함 (「답안지 회수 및 문제지 처리방법」 참고)
+                </div>
+            </div>
+        </div>
+
+        <!-- 슬라이드 3: 2~5교시 공통사항 1 -->
+        <div class="slide">
+            <h1>2·3·4·5교시 공통 유의사항</h1>
+            <h2>1교시와 같은 요령으로 진행하되 다음 사항에 유의</h2>
+            
+            <div class="content">
+                <div class="bullet-point">
+                    감독관은 <span class="highlight">예비령이 울리기 전까지</span> 시험실에 입실 완료
+                </div>
+
+                <div class="important">
+                    <strong>⚠️ 주의</strong><br>
+                    예비시간(예비령)이 1교시와는 달리 <span class="highlight">5분간</span>임.
+                </div>
+
+                <div class="bullet-point">
+                    휴대 가능 물품 외 물품은 매 교시 시작 전에 가방에 넣어 시험실 앞에 제출하도록 조치
+                </div>
+
+                <div class="note">
+                    <strong>※</strong> 매 교시별로 시험장 반입 금지 물품의 미제출 사실을 발견한 경우 해당 응시자를 부정행위로 처리<br>
+                    (점심시간 및 휴식시간 포함)
+                </div>
+
+                <div class="bullet-point">
+                    <span class="highlight">2, 4, 5교시</span>는 본령이 울린 후 제1감독관이 수험표와 응시원서 및 신분증 등을 대조하여 본인 여부 확인
+                </div>
+
+                <div class="note">
+                    <strong>※</strong> <span class="highlight">3교시</span>는 예비령 시간에 '1교시 본인 여부 및 휴대 가능 시계 여부 확인 요령'과 같은 방법으로 본인 여부 및 휴대 가능 시계 여부 확인
+                </div>
+            </div>
+        </div>
+
+        <!-- 슬라이드 4: 2교시 수학 / 3교시 영어 -->
+        <div class="slide">
+            <h1>2교시 / 3교시 특별 유의사항</h1>
+            
+            <h2>2교시 - 수학 영역</h2>
+            <div class="content">
+                <div class="important">
+                    <strong>📝 주관식 답안 표기 방법</strong><br>
+                    <ul style="margin-top: 15px;">
+                        <li>십진법에 의하되, 반드시 자리수를 맞추어 표기</li>
+                        <li>정답이 한 자릿수인 경우, 십의 자리에 '0'을 표기한 것도 허용</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2 style="margin-top: 50px;">3교시 - 영어 영역 (듣기평가)</h2>
+            <div class="content">
+                <div class="important">
+                    <strong>🔊 듣기평가 유의사항</strong><br>
+                    <ul style="margin-top: 15px;">
+                        <li><span class="highlight">본령 타종 없이</span> 영어 영역에 대한 듣기평가가 방송됨</li>
+                        <li>수험생들로 하여금 방송청취를 위한 준비를 하도록 함</li>
+                        <li>방송에서 문제지 표지를 넘기라는 지시가 있기 전에는 <strong>절대 문제지 표지를 먼저 넘기지 않도록</strong> 안내 방송 멘트에 따라 주지시킴</li>
+                    </ul>
+                </div>
+
+                <div class="bullet-point" style="margin-top: 30px;">
+                    영어듣기평가 시작 전 <span class="highlight">기침이 심한 수험생 유무</span>를 파악하고 필요시 해당 수험생의 동의를 받아 다른 시험실로 이동 조치함.
+                </div>
+
+                <div class="bullet-point">
+                    수험생이 선택한 영역의 시험이 모두 끝나는 대로 답안의 표기 및 기재사항 누락 여부 확인 후 귀가 조치(시험장 밖으로 나가도록 조치)
+                </div>
+            </div>
+        </div>
+
+        <!-- 슬라이드 5: 4교시 한국사 및 탐구 -->
+        <div class="slide">
+            <h1>4교시 감독 요령</h1>
+            <h2>한국사 영역 및 사회탐구·과학탐구·직업탐구 영역</h2>
+            
+            <div class="content">
+                <div class="important">
+                    <strong>📚 4교시 진행 순서</strong><br>
+                    <ul style="margin-top: 15px;">
+                        <li>한국사 영역 시험 실시</li>
+                        <li>답안지 및 문제지 회수</li>
+                        <li>탐구 영역 시험 진행</li>
+                    </ul>
+                </div>
+
+                <div class="bullet-point" style="margin-top: 30px;">
+                    한국사 영역 시험 종료 후, <span class="highlight">탐구 영역을 선택하지 않은 응시자</span>들은 대기실로 이동
+                </div>
+
+                <div class="bullet-point">
+                    <span class="highlight">탐구 영역을 선택한 응시자</span>들은 선택한 영역과 과목 수에 따라 시험을 시작함
+                </div>
+
+                <div class="note">
+                    <strong>※</strong> 4교시 탐구 영역 시간에는 선택 영역이 구분됨에 따라 <strong>수험생이 선택한 영역의 문제지가 배부되도록 주의</strong> 요망
+                </div>
+
+                <div class="important" style="margin-top: 30px;">
+                    <strong>⚠️ 탐구 영역 중요 사항</strong><br>
+                    <ul style="margin-top: 15px;">
+                        <li>선택과목 시간마다 <strong>해당 과목만</strong> 풀어야 함</li>
+                        <li>제1선택 과목 문제지 회수시간 <span class="highlight">2분</span>을 부여함</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 슬라이드 6: 마무리 -->
+        <div class="slide">
+            <h1 style="font-size: 3.5em; margin-top: 150px;">✅ 감독 체크리스트</h1>
+            
+            <div class="content" style="margin-top: 60px; font-size: 1.4em;">
+                <div class="important">
+                    <ul>
+                        <li>예비령 전 시험실 입실 완료</li>
+                        <li>본인 확인 철저 (교시별 확인 시점 상이)</li>
+                        <li>휴대 금지 물품 제출 확인 (매 교시)</li>
+                        <li>답안지 기재사항 확인 (성명, 수험번호, 문형, 선택과목)</li>
+                        <li>한국사 영역 미응시 시 전체 무효 주지</li>
+                        <li>3교시 듣기평가 방송 안내 철저</li>
+                        <li>4교시 탐구 영역 문제지 배부 주의</li>
+                    </ul>
+                </div>
+
+                <p style="text-align: center; margin-top: 80px; font-size: 1.6em; color: #667eea; font-weight: bold;">
+                    수험생들의 공정한 시험을 위해<br>
+                    감독관 여러분의 세심한 주의를 부탁드립니다.
+                </p>
+            </div>
+        </div>
+
+        <!-- 슬라이드 7: 결시자 처리 -->
+        <div class="slide">
+            <h1>❌ 결시자 처리</h1>
+            
+            <div class="content">
+                <h3>1. 결시자 파악 및 보고</h3>
+                <ul>
+                    <li>제1감독관이 교시별로 결시자를 파악하여 <strong>결시자 현황표[서식24]</strong>에 수험번호와 성명을 기록</li>
+                    <li>복도감독관에게 전달 (<span class="highlight">본령 후 30분 이내 완료</span>)</li>
+                    <li><strong>3교시는 듣기평가가 끝난 다음 파악</strong></li>
+                    <li>복도감독관은 결시자 현황표(결시자 수)를 시험관리본부에 보고</li>
+                </ul>
+
+                <h3>2. 답안지 처리</h3>
+                <div class="important">
+                    제1감독관이 <strong>검은색 컴퓨터용 사인펜</strong>으로 결시자의 답안지에 다음과 같이 표기:
+                    <ul style="margin-top: 15px;">
+                        <li>성명 및 수험번호 기재</li>
+                        <li>수험번호 해당란과 결시자 표기란에 "●"와 같이 표기</li>
+                        <li>감독관 확인란에 서명 또는 날인</li>
+                    </ul>
+                </div>
+
+                <div class="danger-box" style="margin-top: 20px;">
+                    <strong>⚠️ 주의</strong><br>
+                    답안지의 답란에는 어떠한 표기도 하여서는 안 됨<br>
+                    (답란에 "결시"라고 기재하지 않도록 주의)
+                </div>
+
+                <h3>3. 시스템 입력 및 관리</h3>
+                <ul>
+                    <li>결시자 현황표는 시험관리본부에서 매 교시별 수능 정보시스템에 입력</li>
+                    <li>시험실별 제1감독관과 시험장 책임자의 서명 또는 날인으로 확인</li>
+                    <li><strong>결시자 답안지는 반드시 포함</strong>하되, <strong>영역 미선택자 답안지는 포함하지 말 것</strong></li>
+                    <li>시험장 학교에는 결시자 현황표 원본을 보관</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 슬라이드 8: 중도 포기자 처리 -->
+        <div class="slide">
+            <h1>🚪 중도 포기자 처리</h1>
+            
+            <div class="content">
+                <h2>시험실 입실 후 중도 포기자 처리</h2>
+                
+                <div class="important">
+                    <strong>기본 원칙</strong>
+                    <ul style="margin-top: 15px;">
+                        <li><strong>시험시간 도중에 퇴실은 허용하지 아니함</strong></li>
+                        <li>해당 영역 종료 후 퇴실 가능</li>
+                    </ul>
+                </div>
+
+                <h3>답안지 처리</h3>
+                <ul>
+                    <li>답안지는 <strong>결시자로 처리하지 않음</strong></li>
+                    <li>수험생이 표기한 대로 답안지를 회수</li>
+                    <li>수험생 정보는 기입하였으나 답란에 표기가 없는 경우 → <span class="highlight">백지 답안지 처리 방식</span>과 동일하게 처리</li>
+                </ul>
+
+                <div class="info-box">
+                    <strong>📝 백지 답안지란?</strong><br>
+                    수험생이 성명, 답란 등을 전혀 작성하지 않은 답안지
+                </div>
+
+                <div class="info-box">
+                    <strong>백지 답안지 처리 방식:</strong><br>
+                    답안지의 수험번호, 성명은 반드시 표기하여 제출하여야 함
+                </div>
+
+                <h2 style="margin-top: 50px;">시험실 입실 전 일부 영역 포기자 처리</h2>
+
+                <h3>조치 방법</h3>
+                <ul>
+                    <li><strong>시험 포기 확인서[서식31]</strong>를 받은 후 대기실로 입실토록 함</li>
+                    <li>잔여 전체 영역 포기 시에는 시험장 밖으로 나가도록 조치</li>
+                    <li>이 경우 답안지는 <span class="highlight">결시자 답안지 처리 방식</span>과 동일하게 처리</li>
+                </ul>
+
+                <div class="note">
+                    <strong>※ 5교시 제2외국어/한문 영역 시험 포기의 경우</strong><br>
+                    시험 포기 확인서(5교시)[서식32] 활용
+                </div>
+
+                <h3>확인서 제출 거부 시</h3>
+                <ul>
+                    <li>제1, 2감독관이 "시험 포기 확인서 제출을 거부하였음"을 기재한 확인서를 임의 작성하여 서명 (사실 확인용)</li>
+                </ul>
+
+                <div class="note">
+                    <strong>※ 한국사 영역 시험 종료 후 일부 영역 포기자의 경우</strong><br>
+                    시험실 입실 후 시험 포기 확인서를 제출하더라도 인정
+                </div>
+            </div>
+        </div>
+
+        <!-- 슬라이드 9: 답안지 미제출자 처리 -->
+        <div class="slide">
+            <h1>📄 답안지 미제출자 처리</h1>
+            
+            <div class="content">
+                <div class="danger-box">
+                    <strong>⚠️ 정의</strong><br>
+                    시험을 치르고 답안지를 제출하지 않은 자
+                </div>
+
+                <h3>처리 절차</h3>
+                
+                <div class="important">
+                    <strong>1단계: 답안지 처리</strong>
+                    <ul style="margin-top: 15px;">
+                        <li>답안지를 <span class="highlight">백지 답안지 처리 방식</span>과 동일하게 처리</li>
+                        <li><strong>백지 답안지 제출자 현황표[서식28]</strong>에 기재</li>
+                    </ul>
+                </div>
+
+                <div class="important" style="margin-top: 30px;">
+                    <strong>2단계: 답안지 작성</strong>
+                    <ul style="margin-top: 15px;">
+                        <li>제1감독관이 <strong>검은색 컴퓨터용 사인펜</strong>으로 여분의 답안지를 이용</li>
+                        <li>해당자의 성명 및 수험번호를 기재</li>
+                        <li>"●"와 같이 표기하여 함께 회수 조치</li>
+                    </ul>
+                </div>
+
+                <div class="important" style="margin-top: 30px;">
+                    <strong>3단계: 보고</strong>
+                    <ul style="margin-top: 15px;">
+                        <li>해당 내용을 <strong>별도 공문</strong>으로 제출</li>
+                    </ul>
+                </div>
+
+                <div class="note" style="margin-top: 50px;">
+                    <strong>💡 참고사항</strong><br>
+                    <ul style="margin-top: 10px;">
+                        <li>답안지 미제출은 중도 포기와는 다른 상황임</li>
+                        <li>반드시 여분의 답안지를 활용하여 기록을 남겨야 함</li>
+                        <li>백지 답안지 제출자 현황표와 별도 공문 제출을 모두 이행해야 함</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 슬라이드 10: 시험 중 부정행위자 처리 -->
+        <div class="slide">
+            <h1>⚠️ 시험 중 부정행위자 처리</h1>
+            
+            <div class="content">
+                <h2>시험실 감독관의 조치사항</h2>
+                
+                <div class="important">
+                    <strong>1. 부정행위 판단 및 통고</strong>
+                    <ul style="margin-top: 15px;">
+                        <li>시험시간 중 적발된 부정행위 여부는 <span class="highlight">감독관 간(제1, 2감독관)의 합의</span>로 판단</li>
+                        <li>본인에게 부정행위 적발 사실을 통고</li>
+                        <li>복도감독관을 통해 시험장 책임자에게 보고</li>
+                    </ul>
+                </div>
+
+                <div class="important" style="margin-top: 30px;">
+                    <strong>2. 답안지 표기</strong>
+                    <ul style="margin-top: 15px;">
+                        <li>답안지 왼쪽 하단 여백에 <span class="highlight">적색 펜</span>으로 <strong>'부정'</strong> 표기</li>
+                        <li>이유 명기 후 서명 또는 날인</li>
+                    </ul>
+                </div>
+
+                <div class="important" style="margin-top: 30px;">
+                    <strong>3. 답안지 회수</strong>
+                    <ul style="margin-top: 15px;">
+                        <li>시험시간 중 부정행위로 적발된 교시의 답안지는 <strong>결시자로 처리하지 않음</strong></li>
+                        <li>수험생이 표기한 대로 답안지를 회수</li>
+                        <li>답란에 표기가 없는 경우 백지 답안지 처리 방식과 동일하게 처리</li>
+                    </ul>
+                </div>
+
+                <div class="danger-box">
+                    <strong>※ 해당 교시 이후의 답안지는</strong><br>
+                    결시자 답안지 처리 방식과 동일하게 처리
+                </div>
+
+                <div class="important" style="margin-top: 30px;">
+                    <strong>4. 퇴장 및 자술서 징구</strong>
+                    <ul style="margin-top: 15px;">
+                        <li>부정행위자를 시험실에서 퇴장시켜 별도 장소에 대기토록 함</li>
+                        <li><strong>자술서[서식26]</strong> 징구</li>
+                        <li>필요한 경우 경찰관의 지원 요청 가능</li>
+                        <li>자술서 작성을 거부할 경우에는 이를 징구하지 않을 수 있음</li>
+                    </ul>
+                </div>
+
+                <div class="important" style="margin-top: 30px;">
+                    <strong>5. 조서 작성</strong>
+                    <ul style="margin-top: 15px;">
+                        <li>해당 교시 종료 후 제1감독관 및 제2감독관이 <strong>조서[서식27]</strong> 작성</li>
+                        <li>시험장 책임자에게 제출 및 보고</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 슬라이드 11: 시험 중 부정행위자 처리 (계속) -->
+        <div class="slide">
+            <h1>⚠️ 시험 중 부정행위자 처리 (계속)</h1>
+            
+            <div class="content">
+                <h2>4교시 탐구 영역 특별 유의사항</h2>
+                
+                <div class="danger-box">
+                    <strong>부정행위로 처리되는 경우:</strong>
+                    <ul style="margin-top: 15px;">
+                        <li>정해진 순서가 아닌 순서로 문제지를 보는 경우</li>
+                        <li>정해진 선택과목 문제지를 모두 올려놓고 보는 경우</li>
+                    </ul>
+                </div>
+
+                <div class="info-box" style="margin-top: 20px;">
+                    <strong>부정행위로 처리하지 않는 경우:</strong><br>
+                    수험생이 본인 선택과목 이외의 기타 문제지를 올려놓았을 경우<br>
+                    → 해당 문제지를 회수하고 부정행위로 처리하지 아니함
+                </div>
+
+                <h2 style="margin-top: 50px;">시험장 책임자의 조치사항</h2>
+                <ul>
+                    <li>적발 사실을 시험지구 책임자에게 보고하고 자술서와 조서 제출</li>
+                    <li>충청북도교육청 파견감독관을 통해 충청북도교육감에게 보고</li>
+                </ul>
+
+                <div class="danger-box" style="margin-top: 20px;">
+                    <strong>⚠️ 조직적·계획적 부정행위 의혹이 있는 경우</strong><br>
+                    시험장책임자가 <strong>반드시 경찰에 수사 의뢰</strong><br>
+                    (형법 제137조 위계에 의한 공무집행 방해죄에 해당)
+                </div>
+
+                <h2 style="margin-top: 40px;">시험지구 책임자의 조치사항</h2>
+                <ul>
+                    <li>적발 사실을 한국교육과정평가원에 설치된 종합상황실에 보고</li>
+                    <li>중앙협력관에게 관련 내용 통보</li>
+                    <li>자술서 및 조서 제출</li>
+                </ul>
+
+                <h2 style="margin-top: 40px;">충청북도교육감의 조치사항</h2>
+                <ul>
+                    <li>부정행위자의 소속 학교(대학 포함)에 관련 사실을 통보</li>
+                    <li>학칙에 따른 징계 요구</li>
+                </ul>
+
+                <div class="note">
+                    ※ 교육부장관이 정하는 경미한 부정행위에 해당하는 자는 제외
+                </div>
+
+                <h2 style="margin-top: 40px;">한국교육과정평가원장의 조치사항</h2>
+                <ul>
+                    <li>부정행위 적발 사실을 종합상황실에 파견된 교육부 관계관을 통해 교육부장관에게 보고</li>
+                    <li>시험 현장에서 적발된 부정행위자의 수능 성적은 <strong>별도의 처분 없이 무효</strong>로 함</li>
+                    <li>자술서 및 조서 관리</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 슬라이드 12: 시험 종료 후 부정행위자 처리 -->
+        <div class="slide">
+            <h1>🔍 시험 종료 후 적발된 부정행위 처리</h1>
+            
+            <div class="content">
+                <h2>충청북도교육감 조치사항</h2>
+                <ul>
+                    <li>충청북도교육청에서 추가로 인지한 부정행위는 충청북도교육감이 <strong>필요 시 경찰에 수사를 의뢰</strong>하고 교육부장관에게 보고</li>
+                    <li>부정행위자가 재학 중인 학교(대학 포함)에 관련 사실을 통보</li>
+                    <li>학칙에 따른 징계 요구</li>
+                </ul>
+
+                <div class="note">
+                    ※ 교육부장관이 정하는 경미한 부정행위에 해당하는 자는 제외
+                </div>
+
+                <h2 style="margin-top: 50px;">교육부장관의 조치사항</h2>
+                <ul>
+                    <li>교육부가 추가로 인지한 부정행위는 교육부장관이 <strong>필요 시 경찰에 수사 의뢰</strong></li>
+                    <li>추가로 인지하거나 충청북도교육감이 보고한 부정행위자에 대하여 <span class="highlight">｢수능부정행위 심의위원회｣</span>를 통해 성적 처리방안 심의 및 결정</li>
+                    <li>결정된 부정행위자 성적 처리방안을 한국교육과정평가원장 및 충청북도교육감에게 통보</li>
+                    <li>필요 시 부정행위자 명단을 대학에 통보</li>
+                </ul>
+
+                <h2 style="margin-top: 50px;">한국교육과정평가원장의 조치사항</h2>
+                <ul>
+                    <li>교육부장관으로부터 통보된 부정행위자의 <strong>성적 무효 처리</strong></li>
+                </ul>
+
+                <h2 style="margin-top: 50px;">대리시험 의혹 응시자에 대한 조치요령</h2>
+                
+                <div class="important">
+                    <strong>1. 발견 및 보고</strong>
+                    <ul style="margin-top: 15px;">
+                        <li>제1감독관은 해당 사실을 시험장 책임자에게 보고</li>
+                        <li>해당 시험실의 다음 감독관에게 전달</li>
+                    </ul>
+                </div>
+
+                <div class="important" style="margin-top: 30px;">
+                    <strong>2. 감시 강화</strong>
+                    <ul style="margin-top: 15px;">
+                        <li>시험장 책임자는 해당 복도감독관을 증원 배치</li>
+                        <li>예의 주시</li>
+                    </ul>
+                </div>
+
+                <div class="important" style="margin-top: 30px;">
+                    <strong>3. 본인 확인</strong>
+                    <ul style="margin-top: 15px;">
+                        <li>해당 응시자가 지원한 모든 과목/영역의 시험 종료 후</li>
+                        <li>감독관의 지시에 따라 별도의 장소로 안내하여 본인 여부 확인</li>
+                    </ul>
+                </div>
+
+                <div class="danger-box">
+                    <strong>⚠️ 도주 시 처리</strong><br>
+                    감독관의 지시에 응하지 않고 도주한 경우<br>
+                    → 경찰에 수사를 의뢰<br>
+                    → 본인 여부와 관계없이 부정행위로 간주하여 수능시험을 무효 처리
+                </div>
+
+                <div class="important" style="margin-top: 30px;">
+                    <strong>4. 대리응시 확인 시</strong>
+                    <ul style="margin-top: 15px;">
+                        <li>부정행위자의 <strong>자술서</strong> 징구</li>
+                        <li>감독관의 <strong>조서</strong>(부정행위자의 최종 교시 제1감독관이 작성) 작성</li>
+                        <li>시험장 책임자에게 제출</li>
+                    </ul>
+                </div>
+
+                <div class="important" style="margin-top: 30px;">
+                    <strong>5. 경찰 인계</strong>
+                    <ul style="margin-top: 15px;">
+                        <li>시험장 책임자는 부정행위자를 경찰에 인계</li>
+                        <li>수사 의뢰</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 슬라이드 13: 부정행위 기타 사항 -->
+        <div class="slide">
+            <h1>🔍 부정행위 처리 기타 사항</h1>
+            
+            <div class="content">
+                <div class="important">
+                    <strong>부정행위 의혹이 있는 응시자 처리 시점</strong>
+                    <ul style="margin-top: 15px;">
+                        <li><span class="highlight">원칙:</span> 예비령 이전까지는 즉시 확인하여 처리</li>
+                        <li><span class="highlight">예비령 이후:</span> 해당 교시 종료 후 확인하여 조치</li>
+                        <li><span class="highlight">예외:</span> 상황에 따라 시험장 책임자의 판단하에 최종 교시 종료 후 처리 가능</li>
+                    </ul>
+                </div>
+
+                <div class="info-box" style="margin-top: 50px;">
+                    <strong>💡 기타 사항</strong><br>
+                    명시되지 않은 기타 사항은 <strong>시험 현장에서 적발한 부정행위자 처리 절차 준용</strong>
+                </div>
+
+                <div class="note" style="margin-top: 50px;">
+                    <strong>📋 관련 서식</strong>
+                    <ul style="margin-top: 15px;">
+                        <li>서식24: 결시자 현황표</li>
+                        <li>서식26: 자술서</li>
+                        <li>서식27: 조서</li>
+                        <li>서식28: 백지 답안지 제출자 현황표</li>
+                        <li>서식31: 시험 포기 확인서</li>
+                        <li>서식32: 시험 포기 확인서(5교시)</li>
+                    </ul>
+                </div>
+
+                <div class="danger-box" style="margin-top: 50px;">
+                    <strong>⚠️ 중요 안내</strong>
+                    <ul style="margin-top: 15px;">
+                        <li>모든 부정행위 처리는 반드시 제1, 2감독관의 합의로 판단</li>
+                        <li>답안지 표기 시 정확한 색상(적색 펜) 사용</li>
+                        <li>모든 서류는 정확하게 작성하고 누락 없이 제출</li>
+                        <li>조직적·계획적 부정행위 의혹 시 즉시 경찰 수사 의뢰</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">◀ 이전</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">다음 ▶</button>
+    </div>
+
+    <!-- 모달 1: 시험장 반입 금지 물품 -->
+    <div class="modal" id="modal1">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('modal1')">&times;</button>
+            <h2>📵 시험장 반입 금지 물품</h2>
+            <div class="danger-box">
+                <strong>⚠️ 시험장에 가지고 올 수 없는 물품</strong><br>
+                시험 시간, 쉬는 시간 불문하고 적발 시 부정행위 처리
+            </div>
+            
+            <div class="content">
+                <h3>전자기기 반입 금지 원칙</h3>
+                <div class="info-box">
+                    시험 중 활용 여부 및 기능과 무관하게 <strong>모든 전자기기는 원칙적으로 시험장 반입이 금지</strong>됨
+                </div>
+
+                <h3>구체적 금지 물품</h3>
+                <ul>
+                    <li><strong>통신(블루투스 기능 포함)·결제 기능이 있는 모든 물품</strong>
+                        <ul style="margin-left: 30px; margin-top: 10px;">
+                            <li>휴대폰, 스마트워치, 태블릿, 이어폰 등</li>
+                        </ul>
+                    </li>
+                    <li><strong>전자식 화면표시기(LCD, LED 등)가 있는 모든 물품</strong>
+                        <ul style="margin-left: 30px; margin-top: 10px;">
+                            <li>전자사전, 전자식 화면표시기가 있는 시계, 텀블러 등</li>
+                        </ul>
+                    </li>
+                    <li><strong>기타 충전식 물품 일체</strong>
+                        <ul style="margin-left: 30px; margin-top: 10px;">
+                            <li>전자담배, 보조배터리 등</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 모달 2: 시험 중 휴대 가능 물품 -->
+    <div class="modal" id="modal2">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('modal2')">&times;</button>
+            <h2>✅ 시험 중 휴대 가능 물품</h2>
+            <div class="info-box">
+                쉬는 시간 및 시험 중 소지가 가능한 물품
+            </div>
+            
+            <div class="content">
+                <h3>휴대 가능 물품 목록</h3>
+                <ul>
+                    <li>신분증, 수험표</li>
+                    <li>검은색 컴퓨터용 사인펜</li>
+                    <li>흰색 수정테이프</li>
+                    <li>흑색 연필</li>
+                    <li>지우개</li>
+                    <li>샤프심(흑색, 0.5mm)</li>
+                    <li><strong>시침·분침(초침)이 있는 아날로그시계</strong>로 결제·통신(블루투스 등) 기능 및 전자식 화면표시기(LCD, LED 등)가 모두 없는 시계</li>
+                    <li>마스크(감독관 사전확인)</li>
+                </ul>
+
+                <h3>필기구 지급 및 개인 지참</h3>
+                <div class="warning-box">
+                    <ul>
+                        <li>1교시 시작 전 시험실에서 <strong>검은색 컴퓨터용 사인펜과 샤프를 일괄 지급</strong></li>
+                        <li>흰색 수정테이프를 시험실별로 5개씩 준비하여 시험 중 원하는 수험생에게 제공</li>
+                        <li>검은색 컴퓨터용 사인펜, 흑색연필, 흰색 수정테이프, 지우개, 샤프심(0.5mm)은 개인 지참 가능</li>
+                        <li><strong>그 외의 필기구는 개인 휴대 불가</strong></li>
+                    </ul>
+                </div>
+
+                <h3>판단이 모호한 물품</h3>
+                <ul>
+                    <li>휴대 가능여부의 판단이 모호한 물품의 경우에는 매 교시 감독관이 당해 물품을 통한 부정행위 가능성에 대한 검사를 실시하여 휴대 가능 여부 판단</li>
+                    <li>예: 돋보기, 귀마개, 방석 등</li>
+                </ul>
+
+                <h3>의료기기</h3>
+                <div class="info-box">
+                    <ul>
+                        <li>보청기나 혈당관리기기(예: 연속혈당측정기, 전용단말기, 인슐린펌프 등) 등 개인의 신체적 이유나 의료 상 필요한 기기의 경우, <strong>사용 허가 등 사전 확인을 받은 경우인지 확인</strong></li>
+                        <li>통신가능, 소음여부 등을 판단하여 사용을 불허하거나 별도시험실 응시를 안내할 수 있음</li>
+                    </ul>
+                </div>
+
+                <h3>마스크</h3>
+                <ul>
+                    <li>수험생은 시험 중에 마스크를 교체하는 경우에 대비하여 여분의 마스크를 소지할 수 있음</li>
+                    <li>이 경우에도 마스크에 대한 검사를 실시한 후 소지하도록 함</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 모달 3: 시험 중 휴대 가능 물품 외 물품 -->
+    <div class="modal" id="modal3">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('modal3')">&times;</button>
+            <h2>📦 시험 중 휴대 가능 물품 외 물품</h2>
+            <div class="warning-box">
+                쉬는 시간 휴대 가능하나 시험 중 휴대는 불가능
+            </div>
+            
+            <div class="content">
+                <h3>시험 중 휴대 가능 물품 외 물품(예시)</h3>
+                
+                <div class="info-box">
+                    <strong>▸ 시험 중 적발 시 압수되는 물품:</strong><br>
+                    투명종이(일명 기름종이), 연습장, 개인샤프, 예비마킹용 플러스펜, 볼펜 등
+                </div>
+
+                <div class="danger-box">
+                    <strong>▸ 시험 중 적발 시 부정행위 처리되는 물품:</strong><br>
+                    교과서, 참고서, 기출문제지 등
+                </div>
+
+                <h3>조치 방법</h3>
+                <ul>
+                    <li>발견 즉시 압수 조치하고, 압수 조치에 불응하는 경우에는 부정행위 처리할 수 있음</li>
+                    <li>일부 물품의 경우에는 적발 즉시 부정행위로 처리함</li>
+                    <li>휴대 가능여부의 판단이 모호한 물품의 경우에는 매 교시 감독관에게 당해 물품을 통한 부정행위 가능성에 대한 검사를 받아 휴대 가능 (돋보기, 귀마개, 방석 등)</li>
+                </ul>
+
+                <h3>관리 절차</h3>
+                <ul>
+                    <li>휴대 가능 물품 외 물품은 <strong>시험 시작 전 모두 가방에 넣은 후 시험실 앞으로 제출</strong>토록 하고, 시험시간 중에는 접촉하지 못하게 함</li>
+                    <li>제출장소는 시험실 상황에 따라 변경 가능</li>
+                </ul>
+
+                <div class="info-box">
+                    <strong>※ 단,</strong> 영역별 미선택자는 시험에 응시하지 않는 시간에 대기실에서 자습을 위해 반드시 필요한 물품만을 꺼내 휴대 가능함
+                </div>
+
+                <div class="danger-box">
+                    <strong>⚠️ 유의사항</strong><br>
+                    4교시 한국사 시험 종료령 이후 탐구 영역 미선택자 대기실 이동의 경우를 제외하고, <strong>문·답지 회수 및 배부 시간 15분은 시험시간에 해당</strong>하여 휴대 가능 물품 외 물품 접촉 시 부정행위에 해당함
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 모달 4: 수험생 본인 여부 확인 -->
+    <div class="modal" id="modal4">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('modal4')">&times;</button>
+            <h2>🆔 수험생 본인 여부 확인</h2>
+            
+            <div class="content">
+                <div class="warning-box">
+                    수험생 본인 여부 확인은 <strong>제1, 2감독관 공동으로 실시</strong>하며 이 경우 수험표와 응시원서, 신분증 등을 대조하여 수험생의 본인 여부를 철저히 확인하되, 특히 <strong>대리접수자(원서 오른쪽 상단에 표기)는 재확인 실시</strong>
+                </div>
+
+                <h3>수험생 본인 확인 요령</h3>
+                
+                <div class="info-box">
+                    <strong>① 기본 확인 사항</strong><br>
+                    감독관은 매 교시 응시원서와 수험표, 신분증에 의하여 본인 여부를 확인하고, 문제지와 답안지의 성명·수험번호·필적확인란 등의 표기 및 기재 사항 누락 여부를 확인한 후, 답안지의 감독관 확인란에 서명 또는 날인하여야 한다.
+                </div>
+
+                <div class="info-box">
+                    <strong>② 1교시와 3교시</strong><br>
+                    <ul style="margin-top: 10px;">
+                        <li>응시자 본인 여부 및 휴대 가능 시계 여부 확인은 <strong>제1, 2감독관이 공동으로 시험 시작 전에 별도의 시간</strong>을 두고 실시</li>
+                        <li>응시자가 마스크를 착용한 경우, 이 때 <strong>반드시 응시자에게 마스크를 잠시 내리도록 한 후 얼굴을 직접 대조·확인</strong>하여야 함</li>
+                        <li><strong>3교시의 경우:</strong> 문제지와 답안지의 성명·수험번호·필적확인란 등의 확인은 <strong>듣기평가가 끝난 후에 실시</strong>하여야 하며, 듣기평가에 지장을 줄 수 있는 행위는 하지 않는다</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <strong>③ 2교시, 4교시, 5교시</strong><br>
+                    본령 이후 제1감독관이 응시원서와 수험표·신분증에 의하여 본인 여부를 확인<br>
+                    <small>※ 제1감독관이 확인하는 동안 제2감독관은 정면 중앙에 위치하여 감독함</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 모달 5: 휴대 가능 시계 여부 확인 -->
+    <div class="modal" id="modal5">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('modal5')">&times;</button>
+            <h2>⌚ 휴대 가능 시계 여부 확인</h2>
+            
+            <div class="content">
+                <div class="warning-box">
+                    수험생이 시험실에서 휴대한 시계 점검은 <strong>1교시·3교시 시작 전 제1, 2감독관 공동으로 실시</strong>하며 이 경우 휴대한 시계를 수험표, 신분증 등과 함께 시험실 책상 위에 올려놓도록 하고 감독관이 시험실 휴대 가능 시계 여부에 대해 철저한 점검 실시
+                </div>
+
+                <div class="danger-box">
+                    <strong>⚠️ 중요</strong><br>
+                    시계 점검 시 시계 뒷면에 <strong>｢스마트센서｣ 등 웨어러블 기기 부착 여부 반드시 점검</strong>
+                </div>
+
+                <h3>수능 시험실 휴대 가능 시계</h3>
+                <div class="info-box">
+                    시침, 분침(초침)이 있는 <strong>아날로그 시계</strong>로서 결제·통신(블루투스 등) 기능 및 전자식 화면표시기(LCD, LED 등)가 <strong>모두 없는 시계</strong>
+                </div>
+
+                <h3>세부 기준</h3>
+                <ul>
+                    <li>✅ <strong>휴대 가능:</strong> 시침, 분침(초침)이 있는 아날로그 시계</li>
+                    <li>❌ <strong>휴대 불가:</strong> 결제·통신(블루투스 등) 기능 또는 전자식 화면표시기(LCD, LED 등)로 표시하는 기능이 포함된 시계 등은 시험장 반입 금지 물품으로 휴대 불가</li>
+                </ul>
+
+                <h3>부정행위 판단 기준</h3>
+                <div class="info-box">
+                    <ul>
+                        <li>책상 위에 휴대한 시계를 올려놓지 않은 것만으로 부정행위가 되는 것은 아님</li>
+                        <li><strong>1교시·3교시 시작 전 시계를 점검하는 시간 동안 감독관의 시계 확인 요구에 불응할 경우 부정행위로 간주</strong></li>
+                    </ul>
+                </div>
+
+                <h3>알람 기능</h3>
+                <div class="warning-box">
+                    <ul>
+                        <li>시험실에 휴대한 시계에 알람 기능이 있는 경우, <strong>알람이 울리지 않게 조치하도록 매 교시 시작 전 감독관이 수험생들에게 사전 고지</strong></li>
+                        <li>시험 중 알람이 울리는 경우 즉시 알람 설정 해제 및 해당 시계 압수 후 해당 교시 종료 시 돌려줌</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <div class="sidebar-right">
+            <button class="sidebar-btn" onclick="goToSlide(16)">❌ 결시자<br>처리</button>
+            <button class="sidebar-btn" onclick="goToSlide(17)">🚪 중도 포기자<br>처리</button>
+            <button class="sidebar-btn" onclick="goToSlide(18)">📄 답안지<br>미제출자 처리</button>
+            <button class="sidebar-btn" onclick="goToSlide(19)">⚠️ 시험 중<br>부정행위자 처리</button>
+            <button class="sidebar-btn" onclick="goToSlide(21)">🔍 시험 종료 후<br>부정행위자 처리</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        document.getElementById('totalSlides').textContent = totalSlides;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            
+            document.getElementById('currentSlide').textContent = currentSlide + 1;
+            
+            // 버튼 상태 업데이트
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            showSlide(currentSlide + direction);
+        }
+
+        function goToSlide(slideNumber) {
+            showSlide(slideNumber);
+        }
+
+        // 키보드 네비게이션
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') {
+                if (currentSlide > 0) changeSlide(-1);
+            } else if (e.key === 'ArrowRight') {
+                if (currentSlide < totalSlides - 1) changeSlide(1);
+            } else if (e.key === 'Escape') {
+                closeAllModals();
+            }
+        });
+
+        // 초기 버튼 상태 설정
+        document.getElementById('prevBtn').disabled = true;
+
+        // 모달 관련 함수
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function closeAllModals() {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => modal.classList.remove('active'));
+        }
+
+        // 모달 배경 클릭 시 닫기
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeModal(this.id);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
